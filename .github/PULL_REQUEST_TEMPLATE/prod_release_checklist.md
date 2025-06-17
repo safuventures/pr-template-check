@@ -1,3 +1,5 @@
+# This pull request is a production release - please review with extra care.
+
 ## Prod-release Checklist (프로덕션 배포 체크리스트)
 
 ### Testing on Staging (스테이징에서 항상 테스트 할 것)
