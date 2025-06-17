@@ -29,8 +29,8 @@
 - [ ]  Before pressing the **Prod Manual Deploy** trigger in GitHub Actions, I will run tests on staging.
 - **CSP changes**
     - [ ]  I have thought very carefully about the following items and I know that no CSP changes are necessary.
-        - every asset (image, media, sound, font)
-        - script
-        - iframe
-        - network call (RPCs, APIs)
+        - [ ]  very asset (image, media, sound, font)
+        - [ ]  script
+        - [ ]  iframe
+        - [ ]  network call (RPCs, APIs)
     - [ ]  If CSP changes are needed, I understand that a terraform apply must be run in the **infrastructure** by kerberos or pan.
