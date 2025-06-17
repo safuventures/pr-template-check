@@ -1,8 +1,6 @@
-# This PR is a production release - please review with extra care.
+# [Prod-release Checklist] This PR is a production release - please review with extra care.
 
-## Prod-release Checklist
-
-### Testing on Staging
+## Testing on Staging
 
 - [ ]  Before creating the release PR, I have tested on staging.
     - [ ]  iphone
@@ -10,7 +8,7 @@
 - [ ]  I understand this is especially critical when third-party dependencies are involved. The following third-party dependencies are included in this PR:
     - [ ]  …
 
-### Coordination
+## Coordination
 
 - [ ]  This release requires **simultaneous deployment across multiple repositories**, not just a single repo:
     - [ ]  pwa
@@ -21,11 +19,11 @@
 - [ ]  I have carefully planned the deployment order; the order is as follows:
     - …
 
-### Load Management
+## Load Management
 
 - [ ]  If notifications will be sent after deployment, concurrent user traffic may increase. I have performed appropriate load tests and taken any necessary actions.
 
-### PWA
+## PWA
 
 - [ ]  I acknowledge that I must press the **Prod Manual Deploy** trigger in GitHub Actions to deploy to production.
 - [ ]  Before pressing the **Prod Manual Deploy** trigger in GitHub Actions, I will run tests on staging.
