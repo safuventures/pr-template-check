@@ -1,55 +1,35 @@
-# .github/workflows/prod-release-template.yml
-name: Append prod-release checklist to master PRs
+- name: Append prod-release checklist
+  uses: actions/github-script@v7
+  with:
+    script: |
+      // core, github, context are already available
+      const fs = require('fs');
 
-on:
-  pull_request:
-    branches: [ master ]                 # PRs *into* master only
-    types: [opened, edited, ready_for_review]
+      const CHECKLIST_PATH = '.github/PULL_REQUEST_TEMPLATE/prod_release_checklist.md';
 
-jobs:
-  inject:
-    permissions:                         # least-privilege token
-      pull-requests: write
-      contents: read
-    runs-on: ubuntu-latest
+      // read the checklist file
+      if (!fs.existsSync(CHECKLIST_PATH)) {
+        core.warning(`Checklist not found at ${CHECKLIST_PATH}; nothing to append.`);
+        return;
+      }
+      const checklist = fs.readFileSync(CHECKLIST_PATH, 'utf8').trim();
 
-    steps:
-      - uses: actions/checkout@v4
+      // current PR body
+      const pr   = context.payload.pull_request;
+      const body = pr.body || '';
 
-      - name: Append checklist
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs   = require('fs');
-            const core = require('@actions/core');
+      // avoid duplicates
+      if (body.includes(checklist)) {
+        core.info('Checklist already present – skipping.');
+        return;
+      }
 
-            // ---------- path to extra checklist ----------
-            const CHECKLIST_PATH = '.github/PULL_REQUEST_TEMPLATE/prod_release_checklist.md';
+      // append checklist
+      const newBody = `${body}\n\n---\n${checklist}`;
 
-            // ---------- load file ----------
-            if (!fs.existsSync(CHECKLIST_PATH)) {
-              core.warning(`Extra checklist not found at ${CHECKLIST_PATH}; nothing to append.`);
-              return;
-            }
-            const checklist = fs.readFileSync(CHECKLIST_PATH, 'utf8').trim();
-
-            // ---------- current body ----------
-            const pr    = context.payload.pull_request;
-            const body  = pr.body || '';
-
-            // ---------- avoid duplicates ----------
-            if (body.includes(checklist)) {
-              core.info('Checklist already present – skipping.');
-              return;
-            }
-
-            // ---------- build new body ----------
-            const newBody = `${body}\n\n---\n${checklist}`;
-
-            // ---------- update PR ----------
-            await github.rest.pulls.update({
-              owner: context.repo.owner,
-              repo:  context.repo.repo,
-              pull_number: pr.number,
-              body: newBody
-            });
+      await github.rest.pulls.update({
+        owner: context.repo.owner,
+        repo:  context.repo.repo,
+        pull_number: pr.number,
+        body: newBody
+      });
