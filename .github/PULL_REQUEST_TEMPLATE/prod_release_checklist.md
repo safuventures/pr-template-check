@@ -1,4 +1,4 @@
-# This pull request is a production release - please review with extra care.
+# This PR is a production release - please review with extra care.
 
 ## Prod-release Checklist (프로덕션 배포 체크리스트)
 
