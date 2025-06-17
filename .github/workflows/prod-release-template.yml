@@ -1,23 +1,23 @@
-name: Append prod-release checklist to master PRs
+name: Post prod-release checklist comment to master PRs
 
 on:
   pull_request:
     # Run whenever a pull-request targets the master branch
     branches: [ master ]
-    types: [ opened, edited, ready_for_review ]
+    types: [ opened ]
 
 permissions:          # least-privilege token for this job
   pull-requests: write
   contents:    read
 
 jobs:
-  inject:
+  comment:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Append prod-release checklist
+      - name: Post prod-release checklist comment
         uses: actions/github-script@v7
         with:
           script: |
