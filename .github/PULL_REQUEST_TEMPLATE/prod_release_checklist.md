@@ -33,4 +33,4 @@
         - [ ]  script
         - [ ]  iframe
         - [ ]  network call (RPCs, APIs)
-    - [ ]  If CSP changes are needed, I understand that a terraform apply must be run in the **infrastructure** by kerberos or pan.
+    - [ ]  If CSP changes are needed, I understand that a terraform apply must be run in the **infrastructure** repo by kerberos or pan.
