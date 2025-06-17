@@ -44,7 +44,7 @@ jobs:
             }
 
             // ── build the new body (append) ───────────────────────────
-            const newBody = `${currentBody}\n\n---\n${checklist}`;
+            const newBody = `${currentBody}\n\n${checklist}`;
 
             // ── update the PR description ────────────────────────────
             await github.rest.pulls.update({
